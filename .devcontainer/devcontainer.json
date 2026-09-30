@@ -1,0 +1,17 @@
+{
+  "name": "Python 3.14 - Backend",
+
+  "dockerComposeFile": "../docker-compose.yaml",
+
+  "service": "backend",
+
+  "workspaceFolder": "/projects",
+
+  "shutdownAction": "none",
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-python.debugpy"],
+    },
+  },
+}

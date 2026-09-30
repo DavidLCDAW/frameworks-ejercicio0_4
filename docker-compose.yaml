@@ -1,0 +1,50 @@
+services:
+
+  mongodb:
+    image: mongodb/mongodb-community-server:8.0-ubi8
+
+    container_name: mongodb
+
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: pass
+
+    volumes:
+      - mongo_data:/data/db
+
+    ports:
+      - "27017:27017"
+
+  backend:
+    container_name: uvicorn_python
+
+    build: ./backend
+    
+    volumes:
+      - ./projects:/projects
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      - mongodb
+
+    environment:
+      DB_HOST: mongodb
+
+  frontend:
+    container_name: nginx_frontend
+
+    build: ./frontend
+    
+    volumes:
+      - ./projects:/usr/share/nginx/html:ro
+
+    ports:
+      - "8083:80"
+
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
