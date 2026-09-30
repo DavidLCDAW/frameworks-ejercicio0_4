@@ -1,5 +1,4 @@
 services:
-
   mongodb:
     image: mongodb/mongodb-community-server:8.0-ubi8
 
@@ -15,11 +14,38 @@ services:
     ports:
       - "27017:27017"
 
+  phpmyadmin:
+    container_name: phpmyadmin
+    build: ./phpmyadmin
+
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: root
+
+    ports:
+      - "8081:80"
+
+  mariadb:
+    container_name: mariadb
+    build: ./mariadb
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpass
+
+    ports:
+      - "3316:3306"
+
+    volumes:
+      - mariadb_data:/var/lib/mysql
   backend:
     container_name: uvicorn_python
 
     build: ./backend
-    
+
     volumes:
       - ./projects:/projects
 
@@ -36,7 +62,7 @@ services:
     container_name: nginx_frontend
 
     build: ./frontend
-    
+
     volumes:
       - ./projects:/usr/share/nginx/html:ro
 
@@ -48,3 +74,4 @@ services:
 
 volumes:
   mongo_data:
+  mariadb_data:
