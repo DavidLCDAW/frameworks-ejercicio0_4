@@ -26,10 +26,9 @@ def connect(
             print(err)
 
 
-# Add a user to the database
-def add_user(
-    cnx: MySQLConnectionAbstract,
-    # user: User,
+# View users in the database
+def view_users(
+    cnx: MySQLConnectionAbstract | PooledMySQLConnection,
 ) -> None:
     if cnx and cnx.is_connected():
         with cnx.cursor() as cursor:
@@ -37,7 +36,7 @@ def add_user(
 
             rows = cursor.fetchall()
 
-            for rows in rows:
-                print(rows)
+            for row in rows:
+                print(row)
 
         cnx.close()

@@ -1,6 +1,8 @@
 from pathlib import Path
 
-from model.db import add_user, connect
+from view.menu import ask_option, print_menu, validate_option
+
+from controller.menu_mgmt import view
 
 FILE_PATH = Path(__file__).resolve().parent.parent / "conf.txt"
 DEBUG: bool = True
@@ -28,10 +30,15 @@ def run_app(config: dict[str, str]) -> None:
 
     if DEBUG:
         print(config.items())
-        cnx = connect(config)
-        print(add_user(cnx))
 
     if ERROR_KEY in config.keys():
         print(config["error"])
         return None
-    return None
+
+    while not end:
+        print_menu()
+        option = ask_option()
+        if option == validate_option("Salir"):
+            end = True
+        if option == validate_option("Ver"):
+            view(config)
