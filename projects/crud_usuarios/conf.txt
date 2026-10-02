@@ -1,5 +1,5 @@
 user=root
 pw=root
 host=mariadb
-db=pdauf_ut0
+db=crud
 admin_pw=admin
