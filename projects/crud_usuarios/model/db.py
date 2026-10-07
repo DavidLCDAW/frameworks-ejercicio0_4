@@ -28,15 +28,22 @@ def connect(
 
 # View users in the database
 def view_users(
-    cnx: MySQLConnectionAbstract | PooledMySQLConnection,
-) -> None:
-    if cnx and cnx.is_connected():
-        with cnx.cursor() as cursor:
-            result = cursor.execute("SELECT * FROM usuarios")
-
-            rows = cursor.fetchall()
-
-            for row in rows:
-                print(row)
-
-        cnx.close()
+    cnx: MySQLConnectionAbstract | PooledMySQLConnection | None,
+) -> list[User]:
+    if cnx is None or not cnx.is_connected():
+        raise ConnectionError("No se pudo conectar a la base de datos")
+    with cnx.cursor() as cursor:
+        cursor.execute("select id, nombre, ape1, ape2, fechanac from usuarios")
+        rows = cursor.fetchall()
+        users = []
+        for id, nombre, ape1, ape2, fechanac in rows:
+            users.append(
+                User(
+                    id=str(id),
+                    nombre=str(nombre),
+                    ape1=str(ape1),
+                    ape2=str(ape2),
+                    fechanac=str(fechanac),
+                )
+            )
+        return users
