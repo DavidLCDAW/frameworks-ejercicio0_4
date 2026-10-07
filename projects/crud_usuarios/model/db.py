@@ -47,3 +47,17 @@ def view_users(
                 )
             )
         return users
+
+# Add user
+def add_user(
+    cnx: MySQLConnectionAbstract | PooledMySQLConnection | None,
+    user: User,
+) -> None:
+    if cnx is None or not cnx.is_connected():
+        raise ConnectionError("No se pudo conectar a la base de datos")
+    with cnx.cursor() as cursor:
+        cursor.execute(
+            "insert into usuarios (nombre, ape1, ape2, fechanac) values (%s, %s, %s, %s)",
+            (user.nombre, user.ape1, user.ape2, user.fechanac),
+        )
+        cnx.commit()

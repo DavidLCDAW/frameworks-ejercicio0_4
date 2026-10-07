@@ -1,8 +1,9 @@
 from pathlib import Path
 
-from view.menu import ask_option, print_menu, validate_option
+from view.menu import ask_option, get_user, print_menu, validate_option
 
-from controller.menu_mgmt import view
+
+from controller.menu_mgmt import view, register
 
 FILE_PATH = Path(__file__).resolve().parent.parent / "conf.txt"
 DEBUG: bool = True
@@ -42,3 +43,6 @@ def run_app(config: dict[str, str]) -> None:
             end = True
         if option == validate_option("Ver"):
             view(config)
+        if option == validate_option("Añadir usuario"):
+            user = get_user()
+            register(config, user)
