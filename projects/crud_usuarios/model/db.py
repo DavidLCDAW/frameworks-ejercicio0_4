@@ -4,10 +4,12 @@ from mysql.connector import errorcode
 from mysql.connector.abstracts import MySQLConnectionAbstract
 from mysql.connector.pooling import PooledMySQLConnection
 
+CONNECTION = MySQLConnectionAbstract | PooledMySQLConnection | None
+
 
 def connect(
     config: dict[str, str],
-) -> PooledMySQLConnection | MySQLConnectionAbstract | None:
+) -> CONNECTION:
     try:
         connection = mysql.connector.connect(
             host=config["host"],
@@ -28,7 +30,7 @@ def connect(
 
 # View users in the database
 def view_users(
-    cnx: MySQLConnectionAbstract | PooledMySQLConnection | None,
+    cnx: CONNECTION,
 ) -> list[User]:
     if cnx is None or not cnx.is_connected():
         raise ConnectionError("No se pudo conectar a la base de datos")
@@ -48,9 +50,10 @@ def view_users(
             )
         return users
 
+
 # Add user
 def add_user(
-    cnx: MySQLConnectionAbstract | PooledMySQLConnection | None,
+    cnx: CONNECTION,
     user: User,
 ) -> None:
     if cnx is None or not cnx.is_connected():
