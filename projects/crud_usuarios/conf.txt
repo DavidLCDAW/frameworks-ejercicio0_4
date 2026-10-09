@@ -1,5 +1,5 @@
 user=root
 pw=root
-host=mariadb
+host=mariadb_crud_usuarios
 db=crud
 admin_pw=admin

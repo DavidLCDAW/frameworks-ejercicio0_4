@@ -15,7 +15,7 @@ services:
       - "27017:27017"
 
   phpmyadmin:
-    container_name: phpmyadmin
+    container_name: phpmyadmin_crud_usuarios
     build: ./phpmyadmin
 
     environment:
@@ -24,10 +24,10 @@ services:
       PMA_PASSWORD: root
 
     ports:
-      - "8081:80"
+      - "8181:80"
 
   mariadb:
-    container_name: mariadb
+    container_name: mariadb_crud_usuarios
     build: ./mariadb
 
     environment:
@@ -37,10 +37,10 @@ services:
       MYSQL_PASSWORD: userpass
 
     ports:
-      - "3316:3306"
+      - "3326:3306"
 
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb_data_crud_usuarios:/var/lib/mysql
   backend:
     container_name: uvicorn_python
 
@@ -74,4 +74,4 @@ services:
 
 volumes:
   mongo_data:
-  mariadb_data:
+  mariadb_data_crud_usuarios:
