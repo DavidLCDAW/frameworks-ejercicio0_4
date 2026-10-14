@@ -2,7 +2,7 @@ from pathlib import Path
 
 from view.menu import ask_option, get_user, get_user_id, print_menu, validate_option
 
-from controller.menu_mgmt import delete, register, view
+from controller.menu_mgmt import delete, register, update, view
 
 FILE_PATH = Path(__file__).resolve().parent.parent / "conf.txt"
 DEBUG: bool = False
@@ -48,3 +48,7 @@ def run_app(config: dict[str, str]) -> None:
         if option == validate_option("Eliminar usuario"):
             userId = get_user_id()
             delete(config, userId)
+        if option == validate_option("Modificar usuario"):
+            userId = get_user_id()
+            user = get_user()
+            update(config, user, userId)

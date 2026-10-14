@@ -1,4 +1,4 @@
-from model.db import add_user, connect, delete_user, view_user, view_users
+from model.db import add_user, connect, delete_user, update_user, view_user, view_users
 from model.User import User
 
 
@@ -34,6 +34,20 @@ def delete(config: dict[str, str], userId: str):
 
         if deleted:
             print("Usuario eliminado")
+
+    except Exception as e:
+        print(f"error: {e}")
+
+
+def update(config: dict[str, str], user: User, userId: str):
+    print("Modificar usuario\n")
+    try:
+        cnx = connect(config)
+
+        updated = update_user(cnx, user, userId)
+
+        if updated:
+            print("Usuario modificado")
 
     except Exception as e:
         print(f"error: {e}")

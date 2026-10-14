@@ -106,3 +106,17 @@ def delete_user(
         )
         cnx.commit()
         return cursor.rowcount > 0
+
+
+# Modify user
+def update_user(cnx: CONNECTION, user: User, userId: str) -> bool:
+    if cnx is None or not cnx.is_connected():
+        raise ConnectionError("No se pudo conectar a la base de datos")
+
+    with cnx.cursor() as cursor:
+        cursor.execute(
+            "update usuarios set nombre=%s, ape1=%s, ape2=%s, fechanac=%s where id=%s",
+            (user.nombre, user.ape1, user.ape2, user.fechanac, userId),
+        )
+        cnx.commit()
+        return cursor.rowcount > 0

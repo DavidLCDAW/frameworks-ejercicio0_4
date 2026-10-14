@@ -4,7 +4,8 @@ OPTIONS_MENU: dict[str, int] = {
     "Ver": 1,
     "Añadir usuario": 2,
     "Eliminar usuario": 3,
-    "Salir": 4,
+    "Modificar usuario": 4,
+    "Salir": 5,
 }
 
 
@@ -32,9 +33,6 @@ def get_user() -> User:
     apellido1: str = input("Apellido 1: \n")
     apellido2: str = input("Apellido 2: \n")
     fecha_nacimiento: str = input("Fecha de nacimiento: \n")
-    user = User(
-        id=id, nombre=nombre, ape1=apellido1, ape2=apellido2, fechanac=fecha_nacimiento
-    )
     user = User(
         id=id, nombre=nombre, ape1=apellido1, ape2=apellido2, fechanac=fecha_nacimiento
     )
