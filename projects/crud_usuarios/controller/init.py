@@ -62,7 +62,12 @@ def run_app(config: dict[str, str]) -> None:
         if option == validate_option("Descargar"):
             formato: str = get_format()
 
-            while not formato.__contains__("json") and not formato.__contains__("csv"):
+            while (
+                not formato.__contains__("json")
+                and not formato.__contains__("csv")
+                and not formato.__contains__("toml")
+                and not formato.__contains__("yaml")
+            ):
                 print("Formato no válido.")
                 formato = get_format()
 

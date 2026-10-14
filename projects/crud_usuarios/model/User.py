@@ -2,6 +2,9 @@ import csv
 import json
 from io import StringIO
 
+import tomlkit
+import yaml
+
 
 class User:
     def __init__(
@@ -57,3 +60,9 @@ class User:
             writer.writeheader()
         writer.writerow(self.serialize())
         return buffer.getvalue()
+
+    def to_toml(self) -> str:
+        return tomlkit.dumps(self.serialize())
+
+    def to_yaml(self) -> str:
+        return yaml.safe_dump(self.serialize(), allow_unicode=True, sort_keys=False)

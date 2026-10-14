@@ -13,6 +13,14 @@ def write(formato: str, users: list[User]):
             content = users[0].to_csv(write_header=True)
             for user in users[1:]:
                 content += user.to_csv(write_header=False)
+    elif formato == "toml":
+        filename = "user.toml"
+        user_toml = [user.to_toml() for user in users]
+        content = "\n".join(user_toml)
+    elif formato == "yaml":
+        filename = "user.yaml"
+        user_yaml = [user.to_yaml() for user in users]
+        content = "\n".join(user_yaml)
     else:
         raise ValueError(f"Formato no soportado: {formato}")
 
