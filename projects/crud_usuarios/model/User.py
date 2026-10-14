@@ -1,15 +1,17 @@
 class User:
-    def __init__(self, id: str, nombre: str, ape1: str, ape2: str, fechanac: str):
+    def __init__(
+        self,
+        id: str = "",
+        nombre: str = "",
+        ape1: str = "",
+        ape2: str = "",
+        fechanac: str = "",
+    ):
         self._id = id
         self._nombre = nombre
         self._ape1 = ape1
         self._ape2 = ape2
         self._fechanac = fechanac
-        # self._id = User._sanitize(id)
-        # self._nombre = User._sanitize(nombre)
-        # self._ape1 = User._sanitize(ape1)
-        # self._ape2 = User._sanitize(ape2)
-        # self._fechanac = User._sanitize(fechanac)
 
     @property
     def id(self):

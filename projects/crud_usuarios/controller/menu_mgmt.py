@@ -1,5 +1,5 @@
+from model.db import add_user, connect, delete_user, view_user, view_users
 from model.User import User
-from model.db import add_user, connect, view_users
 
 
 def view(config: dict[str, str]):
@@ -14,10 +14,26 @@ def view(config: dict[str, str]):
     except Exception as e:
         print(f"Error: {e}")
 
+
 def register(config: dict[str, str], user: User):
     print("Añadir usuario\n")
     try:
         cnx = connect(config)
         add_user(cnx, user)
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"error: {e}")
+
+
+def delete(config: dict[str, str], userId: str):
+    print("Eliminar usuario\n")
+    try:
+        cnx = connect(config)
+        user = view_user(cnx, userId=userId)
+
+        deleted = delete_user(cnx, user)
+
+        if deleted:
+            print("Usuario eliminado")
+
+    except Exception as e:
+        print(f"error: {e}")

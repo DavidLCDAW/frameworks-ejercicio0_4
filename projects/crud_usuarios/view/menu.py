@@ -1,6 +1,5 @@
 from model.User import User
 
-
 OPTIONS_MENU: dict[str, int] = {
     "Ver": 1,
     "Añadir usuario": 2,
@@ -33,6 +32,18 @@ def get_user() -> User:
     apellido1: str = input("Apellido 1: \n")
     apellido2: str = input("Apellido 2: \n")
     fecha_nacimiento: str = input("Fecha de nacimiento: \n")
-    user = User(id=id, nombre=nombre, ape1=apellido1, ape2=apellido2, fechanac=fecha_nacimiento)
+    user = User(
+        id=id, nombre=nombre, ape1=apellido1, ape2=apellido2, fechanac=fecha_nacimiento
+    )
+    user = User(
+        id=id, nombre=nombre, ape1=apellido1, ape2=apellido2, fechanac=fecha_nacimiento
+    )
     return user
+
+
+def get_user_id() -> str:
+    id: str = input("Introduce el identificador del usuario\n")
+    return id
+
+
 # def get_format() -> str:

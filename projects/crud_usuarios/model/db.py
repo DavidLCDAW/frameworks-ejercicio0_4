@@ -28,7 +28,7 @@ def connect(
             print(err)
 
 
-# View users in the database
+# View user by id in the database
 def view_users(
     cnx: CONNECTION,
 ) -> list[User]:
@@ -64,3 +64,45 @@ def add_user(
             (user.nombre, user.ape1, user.ape2, user.fechanac),
         )
         cnx.commit()
+
+
+# Get user
+def view_user(
+    cnx: CONNECTION,
+    userId: str,
+) -> User:
+    if cnx is None or not cnx.is_connected():
+        raise ConnectionError("No se pudo conectar a la base de datos")
+    with cnx.cursor() as cursor:
+        cursor.execute(
+            "select id, nombre, ape1, ape2, fechanac from usuarios where id=%s",
+            (userId,),
+        )
+        row = cursor.fetchone()
+        if row is None:
+            raise ValueError(f"No se encontró el usuario con id {userId}")
+
+        id, nombre, ape1, ape2, fechanac = row
+        return User(
+            id=str(id),
+            nombre=str(nombre),
+            ape1=str(ape1),
+            ape2=str(ape2),
+            fechanac=str(fechanac),
+        )
+
+
+# Delete user
+def delete_user(
+    cnx: CONNECTION,
+    user: User,
+) -> bool:
+    if cnx is None or not cnx.is_connected():
+        raise ConnectionError("No se pudo conectar a la base de datos")
+    with cnx.cursor() as cursor:
+        cursor.execute(
+            "delete from usuarios where id=%s",
+            (user.id,),
+        )
+        cnx.commit()
+        return cursor.rowcount > 0
