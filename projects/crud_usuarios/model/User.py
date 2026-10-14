@@ -1,3 +1,8 @@
+import csv
+import json
+from io import StringIO
+
+
 class User:
     def __init__(
         self,
@@ -32,3 +37,23 @@ class User:
     @property
     def fechanac(self):
         return self._fechanac
+
+    def serialize(self) -> dict[str, str]:
+        return {
+            "id": self._id,
+            "nombre": self._nombre,
+            "ape1": self._ape1,
+            "ape2": self._ape2,
+            "fechanac": self._fechanac,
+        }
+
+    def to_json(self) -> str:
+        return json.dumps(self.serialize())
+
+    def to_csv(self, write_header: bool = True) -> str:
+        buffer = StringIO()
+        writer = csv.DictWriter(buffer, fieldnames=self.serialize().keys())
+        if write_header:
+            writer.writeheader()
+        writer.writerow(self.serialize())
+        return buffer.getvalue()

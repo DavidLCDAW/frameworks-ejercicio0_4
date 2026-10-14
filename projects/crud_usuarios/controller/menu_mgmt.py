@@ -1,4 +1,5 @@
 from model.db import add_user, connect, delete_user, update_user, view_user, view_users
+from model.files import write
 from model.User import User
 
 
@@ -48,6 +49,18 @@ def update(config: dict[str, str], user: User, userId: str):
 
         if updated:
             print("Usuario modificado")
+
+    except Exception as e:
+        print(f"error: {e}")
+
+
+def download_db(config: dict[str, str], formato: str):
+    print("Descargar\n")
+    try:
+        cnx = connect(config)
+        users = view_users(cnx)
+
+        write(formato, users)
 
     except Exception as e:
         print(f"error: {e}")

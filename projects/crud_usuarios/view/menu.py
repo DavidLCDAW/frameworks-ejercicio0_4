@@ -5,7 +5,8 @@ OPTIONS_MENU: dict[str, int] = {
     "Añadir usuario": 2,
     "Eliminar usuario": 3,
     "Modificar usuario": 4,
-    "Salir": 5,
+    "Descargar": 5,
+    "Salir": 6,
 }
 
 
@@ -44,4 +45,6 @@ def get_user_id() -> str:
     return id
 
 
-# def get_format() -> str:
+def get_format() -> str:
+    formato: str = input("Introduce el formato de salida: ")
+    return formato
